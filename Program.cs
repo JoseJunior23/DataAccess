@@ -13,7 +13,8 @@ using (var connection = new SqlConnection(connectionString))
   // ListCategories(connection);
   // CreateCategory(connection);
   // ExecuteProcedure(connection);
-  ExecuteReadProcedure(connection);
+  // ExecuteReadProcedure(connection);
+  ExecuteScalar(connection);
 }
 
 static void ListCategories(SqlConnection connection)
@@ -141,5 +142,27 @@ static void ExecuteReadProcedure(SqlConnection connection)
   }
 }
 
+static void ExecuteScalar(SqlConnection connection)
+{
+  var category = new Category();
+  category.Title = "Amazon AWS";
+  category.Url = "amazon";
+  category.Description = "Categoria destinada a serviços Aws Cloud";
+  category.Order = 8;
+  category.Summary = "AWS Cloud";
+  category.Featured = false;
 
+  var insertSql = "INSERT INTO [Category] OUTPUT inserted.[Id] VALUES(NEWID(), @title, @url, @summary, @order, @description, @featured) SELECT SCOPE_IDENTITY()";
+
+  var id = connection.ExecuteScalar<Guid>(insertSql, new
+  {
+    category.Title,
+    category.Url,
+    category.Summary,
+    category.Order,
+    category.Description,
+    category.Featured
+  });
+  Console.WriteLine($"A categoria inserida foi: {id}");
+}
 
