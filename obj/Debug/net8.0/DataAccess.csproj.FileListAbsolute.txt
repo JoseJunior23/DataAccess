@@ -49,3 +49,4 @@
 /home/josejunior/Development/DataAccess/obj/Debug/net8.0/DataAccess.genruntimeconfig.cache
 /home/josejunior/Development/DataAccess/obj/Debug/net8.0/ref/DataAccess.dll
 /home/josejunior/Development/DataAccess/bin/Debug/net8.0/Dapper.dll
+/home/josejunior/Development/DataAccess/obj/Debug/net8.0/DataAccess.sourcelink.json
