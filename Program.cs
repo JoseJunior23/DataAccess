@@ -19,7 +19,8 @@ using (var connection = new SqlConnection(connectionString))
   // OneToOne(connection);
   // OneToMany(connection);
   // QueryMultiple(connection);
-  SelectIn(connection);
+  // SelectIn(connection);
+  Like(connection);
 }
 
 static void ListCategories(SqlConnection connection)
@@ -271,6 +272,23 @@ static void SelectIn(SqlConnection connection)
       "01ae8a85-b4e8-4194-a0f1-1c6190af54cb",
       "4327ac7e-963b-4893-9f31-9a3b28a4e72b"
     }
+  });
+
+  foreach (var item in items)
+  {
+    Console.WriteLine(item.Title);
+  }
+}
+
+static void Like(SqlConnection connection)
+{
+  var term = "api";
+  var query = "SELECT * FROM [Course] WHERE [Title] LIKE @exp ";
+
+  var items = connection.Query<Course>(query, new
+  {
+    exp = $"%{term}%"
+
   });
 
   foreach (var item in items)
